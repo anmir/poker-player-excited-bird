@@ -49,7 +49,7 @@ public class PairStrategy implements Strategy {
 
             }
         } else if (analyzes < getKoef(Combination.DOUBLE_PAIR)) {
-            if (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3) {
+            if (isAtLeastFlop(session)) {
                 System.out.println("Got less then double pair " + ownCards);
                 return betSelector.check();
             }
@@ -60,6 +60,10 @@ public class PairStrategy implements Strategy {
 
         System.out.println("Got pair? " + ownCards);
         return betSelector.getMinimalRaise();
+    }
+
+    private boolean isAtLeastFlop(Session session) {
+        return session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3;
     }
 
     private int getPreflopMax(Session session) {

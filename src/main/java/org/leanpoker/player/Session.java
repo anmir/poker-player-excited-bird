@@ -8,6 +8,7 @@ import java.util.List;
  * Created by liy on 12.08.2017.
  */
 public class Session {
+    public static final String OUR_NAME = "Excited Bird";
 
 //    "game_id": "598eb6f78314440004000015",
 //            "round": 0,
@@ -37,11 +38,23 @@ public class Session {
     private BigDecimal minimum_raise;
     private Integer bet_index;
 
+    public List<Person> getPlayers() {
+        return players;
+    }
+    //    The first player is (dealer+1)%(players.length
+    public int getFirstPlayer(){
+        return (getDealer() +1)%getPlayers().size();
+    }
+
+    public boolean isWeFirst(){
+        return OUR_NAME.equals(getPlayers().get(getFirstPlayer()).getName());
+    }
+
     public Person getPlayer() {
         if (players != null) {
             for (Person player : players) {
                 if (player != null) {
-                    if ("Excited Bird".equals(player.getName())) {
+                    if (OUR_NAME.equals(player.getName())) {
                         return player;
                     }
                 }
