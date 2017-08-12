@@ -1,6 +1,8 @@
 package org.leanpoker.player;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonSyntaxException;
 
 import java.util.Random;
 
@@ -11,10 +13,30 @@ public class Player {
     static PairStrategy pairStrategy = new PairStrategy();
 
     public static int betRequest(JsonElement request) {
-        System.out.println("betRequest: " + request);
-        return random.nextInt(500);
+        int bet = 10;
+        try {
+            System.out.println("betRequest: " + request);
+            Session session = getSession(request);
+            System.out.println("session = " + session);
+
+            //good realisation
+            bet = random.nextInt(500);
+
+
+        } catch (JsonSyntaxException e) {
+            System.err.println("main err= " + e);
+            bet = random.nextInt(500);
+
+        }
+        return bet;
+    }
+
+    protected static Session getSession(JsonElement request) {
+        Gson gson = new Gson();
+        return gson.fromJson(request, Session.class);
     }
 
     public static void showdown(JsonElement game) {
+        System.out.println("showdown");
     }
 }
