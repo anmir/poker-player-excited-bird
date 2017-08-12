@@ -32,10 +32,7 @@ public class RiverStrategy implements Strategy {
         }
 
         if (combination != Combination.BIGGEST_CARD) {
-            if (session.getPlayer().getStack().intValue() < 300 || session.getCurrent_buy_in().intValue() > 300) {
-                return betSelector.fold();
-            }
-            return betSelector.check();
+            return betSelector.safeRaise(session);
         }
 
         return betSelector.fold();
