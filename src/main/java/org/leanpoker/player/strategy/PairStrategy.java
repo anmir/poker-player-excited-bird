@@ -29,13 +29,12 @@ public class PairStrategy implements Strategy {
 
         if (analyzes < getKoef(Combination.PAIR)) {
             System.out.println("No combinations  " + ownCards);
-            if (session.getCommunity_cards() != null
-                    && session.getCommunity_cards().size() ==0) {
+            if (isPreFlop(session)) {
                 if (isFlashOpotunity(session)){
-                        return betSelector.getMaximumRaise();
+                        return getPreflopMax();
                 } else if (biggestCard >= CardRanks._8.getOrdr()){
                     if(biggestCard>=CardRanks.KING.getOrdr()){
-                        return betSelector.getMinimalRaise() * 4;
+                        return getPreflopMax();
                     }
                     return  betSelector.getMinimalRaise();
                 }
@@ -51,8 +50,16 @@ public class PairStrategy implements Strategy {
             return betSelector.getMaximumRaise();
         }
 
-        System.out.println("Got pair or more? " + ownCards);
+        System.out.println("Got pair? " + ownCards);
         return betSelector.getMinimalRaise();
+    }
+
+    private int getPreflopMax() {
+        return betSelector.getMinimalRaise() * 4;
+    }
+
+    private boolean isPreFlop(Session session) {
+        return session.getCommunity_cards() == null || session.getCommunity_cards().size() ==0;
     }
 
     private boolean isFlashOpotunity(Session session) {
