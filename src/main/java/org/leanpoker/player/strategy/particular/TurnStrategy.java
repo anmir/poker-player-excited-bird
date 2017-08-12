@@ -6,7 +6,7 @@ import org.leanpoker.player.analyzer.DefaultCardAnalyzer;
 import org.leanpoker.player.strategy.BetSelector;
 import org.leanpoker.player.strategy.Strategy;
 
-public class FlopStrategy implements Strategy {
+public class TurnStrategy implements Strategy {
     @Override
     public int process(Session session) {
         CardAnalyzer analyzer = new DefaultCardAnalyzer();

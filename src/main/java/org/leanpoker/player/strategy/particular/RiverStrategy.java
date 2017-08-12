@@ -12,12 +12,10 @@ import org.leanpoker.player.strategy.Strategy;
 import java.util.List;
 
 public class RiverStrategy implements Strategy {
-    private CardAnalyzer analyzer = new DefaultCardAnalyzer();
-    private BetSelector betSelector;
-
     @Override
     public int process(Session session) {
-        betSelector = new BetSelector(session);
+        CardAnalyzer analyzer = new DefaultCardAnalyzer();
+        BetSelector betSelector = new BetSelector(session);
 
         List<Card> allCards = session.getAllCards();
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(allCards);
