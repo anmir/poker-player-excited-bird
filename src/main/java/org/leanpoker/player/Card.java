@@ -28,4 +28,11 @@ public class Card {
         }
         throw new RuntimeException("horrible error! can't parse suit '" + suit +"'");
     }
+
+    public int whatBigger(Card other){
+        if(other == null){
+            return 1;
+        }
+       return getRank().compare(other.getRank());
+    }
 }
