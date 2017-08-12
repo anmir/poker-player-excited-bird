@@ -20,6 +20,7 @@ public class DefaultCardAnalyzerTest {
     public void isPair() throws Exception {
         cards.add(card1);
         cards.add(card2);
-        Assert.assertTrue(DefaultCardAnalyzer.isPair(cards));
+        Integer pair = DefaultCardAnalyzer.isPair(cards);
+        Assert.assertEquals(new Integer(2), pair);
     }
 }

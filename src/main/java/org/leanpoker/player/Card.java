@@ -1,6 +1,5 @@
 package org.leanpoker.player;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.leanpoker.player.constants.CardRanks;
@@ -8,7 +7,7 @@ import org.leanpoker.player.constants.CardSuits;
 
 @Data
 @NoArgsConstructor
-public class Card {
+public class Card implements Comparable<Card> {
     private String rank;
     private String suit;
 
@@ -37,17 +36,22 @@ public class Card {
         throw new RuntimeException("horrible error! can't parse suit '" + suit + "'");
     }
 
-    public int whatBigger(Card other){
-        if(other == null){
+    public int whatBigger(Card other) {
+        if (other == null) {
             return 1;
         }
-       return getRank().compare(other.getRank());
+        return getRank().compare(other.getRank());
     }
 
-    public boolean isOneSuit(Card other){
+    public boolean isOneSuit(Card other) {
         if (other == null) {
             return false;
         }
         return getSuit().equals(other.getSuit());
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        return this.whatBigger(o);
     }
 }
