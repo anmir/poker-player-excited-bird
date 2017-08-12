@@ -74,6 +74,27 @@ public class DefaultCardAnalyzerTest {
     }
 
     @Test
+    public void isStraight2() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("6", CardSuits.CLUBS.getVal());
+        Card card2 = new Card("2", CardSuits.DIAMONDS.getVal());
+        Card card3 = new Card("4", CardSuits.CLUBS.getVal());
+        Card card4 = new Card("3", CardSuits.SPADES.getVal());
+        Card card5 = new Card("5", CardSuits.DIAMONDS.getVal());
+        Card card6 = new Card("10", CardSuits.DIAMONDS.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+        cards.add(card6);
+
+        Integer biggestTripleCard = DefaultCardAnalyzer.isStraight(cards);
+        Assert.assertEquals(new Integer(6), biggestTripleCard);
+    }
+
+    @Test
     public void isFlush() throws Exception {
         List<Card> cards = new ArrayList<>();
         Card card1 = new Card("6", CardSuits.DIAMONDS.getVal());
@@ -187,5 +208,77 @@ public class DefaultCardAnalyzerTest {
         Integer biggestCard = DefaultCardAnalyzer.isStraightFlush(cards);
         Assert.assertEquals(null, biggestCard);
     }
+
+
+    @Test
+    public void isOrdered() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("2", CardSuits.DIAMONDS.getVal());
+        Card card2 = new Card("4", CardSuits.DIAMONDS.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        CardAnalyzer analyzer = new DefaultCardAnalyzer();
+
+        Boolean ordered = analyzer.isOrdered(cards);
+        Assert.assertFalse(ordered);
+    }
+
+    @Test
+    public void isOrderedTrue() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("2", CardSuits.DIAMONDS.getVal());
+        Card card2 = new Card("3", CardSuits.DIAMONDS.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        CardAnalyzer analyzer = new DefaultCardAnalyzer();
+
+        Boolean ordered = analyzer.isOrdered(cards);
+        Assert.assertTrue(ordered);
+    }
+
+    @Test
+    public void isAllCardsHasSameSuits() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("2", CardSuits.DIAMONDS.getVal());
+        Card card2 = new Card("3", CardSuits.DIAMONDS.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        CardAnalyzer analyzer = new DefaultCardAnalyzer();
+
+        Boolean isAllCardsHasSameSuits = analyzer.isAllCardsHasSameSuits(cards);
+        Assert.assertTrue(isAllCardsHasSameSuits);
+    }
+
+    @Test
+    public void isNotAllCardsHasSameSuits() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("2", CardSuits.DIAMONDS.getVal());
+        Card card2 = new Card("3", CardSuits.SPADES.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        CardAnalyzer analyzer = new DefaultCardAnalyzer();
+
+        Boolean isAllCardsHasSameSuits = analyzer.isAllCardsHasSameSuits(cards);
+        Assert.assertFalse(isAllCardsHasSameSuits);
+    }
+
+    @Test
+    public void containsHighCard() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card(CardRanks._6.getVal(), CardSuits.DIAMONDS.getVal());
+        Card card2 = new Card(CardRanks._6.getVal(), CardSuits.SPADES.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        CardAnalyzer analyzer = new DefaultCardAnalyzer();
+
+        Boolean isAllCardsHasSameSuits = analyzer.allCardsAreHigh(cards);
+        Assert.assertFalse(isAllCardsHasSameSuits);
+    }
+
 
 }

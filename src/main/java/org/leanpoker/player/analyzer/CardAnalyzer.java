@@ -9,4 +9,12 @@ import java.util.List;
  */
 public interface CardAnalyzer {
     CardAnalyzeResult analyzeCards(List<Card> cards);
+
+    Boolean isOrdered(List<Card> cards);
+
+    Boolean isAllCardsHasSameSuits(List<Card> cards);
+
+    Boolean allCardsAreHigh(List<Card> cards);
+
+    Boolean containsHighCard(List<Card> cards);
 }

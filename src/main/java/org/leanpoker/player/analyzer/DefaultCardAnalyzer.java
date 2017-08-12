@@ -1,6 +1,7 @@
 package org.leanpoker.player.analyzer;
 
 import org.leanpoker.player.Card;
+import org.leanpoker.player.constants.CardRanks;
 import org.leanpoker.player.constants.Combination;
 
 import java.util.ArrayList;
@@ -50,6 +51,76 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
         Card biggestCard = Collections.max(cards);
         return new CardAnalyzeResult(Combination.BIGGEST_CARD, biggestCard.getRank().getOrdr());
     }
+
+    @Override
+    public Boolean isOrdered(List<Card> cards) {
+        return isOrderedInternal(cards);
+    }
+
+
+    public static Boolean isOrderedInternal(List<Card> cards) {
+        Collections.sort(cards);
+        boolean diffBiggerThanOne = false;
+        for (int i = 0; i < cards.size() - 1; i++) {
+            Card card = cards.get(i);
+            Card card2 = cards.get(i + 1);
+            int diff = card2.getRank().getOrdr() - card.getRank().getOrdr();
+            if (diff != 1) {
+                diffBiggerThanOne = true;
+            }
+        }
+        return !diffBiggerThanOne;
+    }
+
+    @Override
+    public Boolean isAllCardsHasSameSuits(List<Card> cards) {
+        return isAllCardsHasSameSuitsInternal(cards);
+    }
+
+    public static Boolean isAllCardsHasSameSuitsInternal(List<Card> cards) {
+        int sameSuitCount = 0;
+        for (int i = 0; i < cards.size() - 1; i++) {
+            Card card = cards.get(i);
+            Card nextCard = cards.get(i + 1);
+            if (nextCard.getSuit().equals(card.getSuit())) {
+                sameSuitCount += 1;
+            }
+        }
+        if (sameSuitCount == cards.size() - 1) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean allCardsAreHigh(List<Card> cards) {
+        return allCardsAreHighInternal(cards);
+    }
+
+    @Override
+    public Boolean containsHighCard(List<Card> cards) {
+        return containsHighCardInternal(cards);
+    }
+
+    public static Boolean containsHighCardInternal(List<Card> cards) {
+        for (int i = 0; i < cards.size(); i++) {
+            Card card = cards.get(i);
+            if (card.getRank().getOrdr() > CardRanks.JAN.getOrdr()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Boolean allCardsAreHighInternal(List<Card> cards) {
+        Collections.sort(cards);
+        Card card = cards.get(0);
+        if (card.getRank().getOrdr() > CardRanks.JAN.getOrdr()) {
+            return true;
+        }
+        return false;
+    }
+
 
     public static Integer isDoublePair(List<Card> cards) {
 
@@ -104,20 +175,21 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
 
     public static Integer isStraight(List<Card> cards) {
         Collections.sort(cards);
-        boolean diffBiggerThanOne = false;
+        int oneDiffCounter = 0;
+        Integer lastBiggerCardRank = null;
         for (int i = 0; i < cards.size() - 1; i++) {
             Card card = cards.get(i);
             Card card2 = cards.get(i + 1);
             int diff = card2.getRank().getOrdr() - card.getRank().getOrdr();
-            if (diff != 1) {
-                diffBiggerThanOne = true;
+            if (diff == 1) {
+                oneDiffCounter += 1;
+                lastBiggerCardRank = new Integer(card2.getRank().getOrdr());
             }
         }
-        if (diffBiggerThanOne) {
-            return null;
+        if (oneDiffCounter >= 4) {
+            return lastBiggerCardRank;
         }
-        Card biggestCardd = cards.get(cards.size() - 1);
-        return biggestCardd.getRank().getOrdr();
+        return null;
     }
 
     public static Integer isFlush(List<Card> cards) {
@@ -145,7 +217,7 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
             return null;
         }
         int matchesCounter = 0;
-        for (int i = 0; i < cards.size()-1; i++) {
+        for (int i = 0; i < cards.size() - 1; i++) {
             Card card = cards.get(i);
             Card nextCard = cards.get(i + 1);
             if (nextCard.getRank().getOrdr().equals(card.getRank().getOrdr())) {
