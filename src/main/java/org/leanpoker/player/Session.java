@@ -70,6 +70,16 @@ public class Session {
 
     }
 
+    public int getActivePlayers(){
+        int count =0;
+        for (Person player : players) {
+            if("active".equals(player.getStatus())){
+                count++;
+            }
+        }
+        return count;
+    }
+
     public List<Card> getCommunity_cards() {
         return community_cards;
     }

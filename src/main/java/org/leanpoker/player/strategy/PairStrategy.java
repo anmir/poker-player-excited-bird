@@ -5,6 +5,7 @@ import org.leanpoker.player.Session;
 import org.leanpoker.player.analyzer.CardAnalyzeResult;
 import org.leanpoker.player.analyzer.CardAnalyzer;
 import org.leanpoker.player.analyzer.DefaultCardAnalyzer;
+import org.leanpoker.player.constants.CardRanks;
 import org.leanpoker.player.constants.Combination;
 
 import java.util.ArrayList;
@@ -17,23 +18,38 @@ public class PairStrategy implements Strategy {
     public int process(Session session) {
         raiseSelector = new RaiseSelector(session);
 
-        int analyzes = analyzeCards(session.getAllCards());
+        CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(session.getAllCards());
+        Combination combination = cardAnalyzeResult.getCombination();
+
+        Integer biggestCard = cardAnalyzeResult.getBiggestCardInCombination();
+        int analyzes = getKoef(combination) + biggestCard;
+
         if (analyzes < getKoef(Combination.PAIR)) { // Not a pair
+            if (session.getCommunity_cards() != null
+                    && session.getCommunity_cards().size() ==0) {
+                if (biggestCard >= CardRanks._8.getOrdr()){
+                    if(biggestCard>=CardRanks.KING.getOrdr()){
+                        return raiseSelector.getMaximumRaise();
+                    }
+                    return  raiseSelector.getMinimalRaise();
+                }
+            }
             return 0;
-        } else if (analyzes < getKoef(Combination.DOUBLE_PAIR) &&
-            (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3)) {
-            return 0;
+        } else if (analyzes < getKoef(Combination.DOUBLE_PAIR)) {
+            if (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3) {
+                return 0;
+            }
+
         } else if (analyzes > getKoef(Combination.TRIPLE)) {
+            return raiseSelector.getMaximumRaise();
+
+        } else if (analyzes > getKoef(Combination.TRIPLE)) {
+            System.out.println("Maximum raise");
             return raiseSelector.getMaximumRaise();
         }
 
+        System.out.println("Minimal raise");
         return raiseSelector.getMinimalRaise();
-    }
-
-    private int analyzeCards(List<Card> handCards) {
-        CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(handCards);
-        Combination combination = cardAnalyzeResult.getCombination();
-        return getKoef(combination) + cardAnalyzeResult.getBiggestCardInCombination();
     }
 
     private int getKoef(Combination combination) {
