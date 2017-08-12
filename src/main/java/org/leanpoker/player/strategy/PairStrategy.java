@@ -28,7 +28,9 @@ public class PairStrategy implements Strategy {
             System.out.println("No combinations");
             if (session.getCommunity_cards() != null
                 && session.getCommunity_cards().size() == 0) {
-                if (biggestCard >= CardRanks._8.getOrdr()) {
+                if (isFlashOpotunity(session)){
+                        return raiseSelector.getMaximumRaise();
+                } else if (biggestCard >= CardRanks._8.getOrdr()) {
                     if (biggestCard >= CardRanks.KING.getOrdr()) {
                         return betSelector.getMinimalRaise() * 4;
                     }
@@ -48,6 +50,14 @@ public class PairStrategy implements Strategy {
 
         System.out.println("Got pair?");
         return betSelector.getMinimalRaise();
+    }
+
+    private boolean isFlashOpotunity(Session session) {
+        List<Card> ownCards = session.getOwnCards();
+        if (ownCards == null) {
+            return false;
+        }
+        return ownCards.get(0).getSuit() == ownCards.get(1).getSuit();
     }
 
     private int getKoef(Combination combination) {

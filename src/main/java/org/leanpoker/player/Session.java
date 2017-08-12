@@ -53,11 +53,21 @@ public class Session {
     public List<Card> getAllCards() {
         ArrayList<Card> cards = new ArrayList<>(community_cards);
 
+        List<Card> ownCards = getOwnCards();
+        if (ownCards != null) {
+            cards.addAll(ownCards);;
+        }
+        return cards;
+
+    }
+
+    public List<Card> getOwnCards() {
+        List<Card> ownCards = null;
         if (players != null) {
             for (Person player : players) {
                 if (player != null && player.getHole_cards() != null) {
                     if ("Excited Bird".equals(player.getName())) {
-                        cards.addAll(player.getHole_cards());
+                        ownCards = player.getHole_cards();
 //                        break;
                     } else {
                         System.out.println("player = " + player.getName());
@@ -66,8 +76,7 @@ public class Session {
                 }
             }
         }
-        return cards;
-
+        return ownCards;
     }
 
     public int getActivePlayers(){
