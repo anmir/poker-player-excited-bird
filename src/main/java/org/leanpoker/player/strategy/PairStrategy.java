@@ -12,25 +12,26 @@ import java.util.List;
 
 public class PairStrategy implements Strategy {
     private CardAnalyzer analyzer = new DefaultCardAnalyzer();
+    private RaiseSelector raiseSelector;
 
-    @Override
-//    public int process(List<Card> handCards) {
     public int process(Session session) {
+        raiseSelector = new RaiseSelector(session);
+
         int analyzes = analyzeCards(session.getAllCards());
-        if(analyzes < 200){
+        if (analyzes < 200) { // Not a pair
             return 0;
-        }else if( analyzes < 300 &&
-                (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3 )){
+        } else if (analyzes < 300 &&
+            (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3)) {
             return 0;
         }
-        return analyzes;
+
+        return raiseSelector.getMinimalRaise();
     }
 
     private int analyzeCards(List<Card> handCards) {
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(handCards);
         Combination combination = cardAnalyzeResult.getCombination();
-        return combination.getValue() *100 + cardAnalyzeResult.getBiggestCardInCombination() ;
-//        80 : 0;
+        return combination.getValue() * 100 + cardAnalyzeResult.getBiggestCardInCombination();
     }
 
     @Override
