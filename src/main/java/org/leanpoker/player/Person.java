@@ -26,7 +26,13 @@ public class Person {
     }*/
     private String name;
     private BigInteger stack;
+    private String status;
     private List<Card> hole_cards;
+
+
+    public String getStatus() {
+        return status;
+    }
 
     public String getName() {
         return name;

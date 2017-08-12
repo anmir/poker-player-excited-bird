@@ -30,12 +30,15 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
             if (biggestDoublePairRank != null) {
                 return new CardAnalyzeResult(Combination.DOUBLE_PAIR, biggestDoublePairRank);
             }
+            Integer biggestStraightRank = isStraight(cards);
+            if (biggestStraightRank != null) {
+                return new CardAnalyzeResult(Combination.STRAIGHT, biggestStraightRank);
+            }
 
         }
         Card biggestCard = Collections.max(cards);
         return new CardAnalyzeResult(Combination.BIGGEST_CARD, biggestCard.getRank().getOrdr());
     }
-
 
     public static Integer isDoublePair(List<Card> cards) {
 
@@ -87,4 +90,23 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
         }
         return null;
     }
+
+    public static Integer isStraight(List<Card> cards) {
+        Collections.sort(cards);
+        boolean diffBiggerThanOne = false;
+        for (int i = 0; i < cards.size() - 1; i++) {
+            Card card = cards.get(i);
+            Card card2 = cards.get(i + 1);
+            int diff = card2.getRank().getOrdr() - card.getRank().getOrdr();
+            if (diff != 1) {
+                diffBiggerThanOne = true;
+            }
+        }
+        if (diffBiggerThanOne) {
+            return null;
+        }
+        Card biggestCardd = cards.get(cards.size() - 1);
+        return biggestCardd.getRank().getOrdr();
+    }
+
 }
