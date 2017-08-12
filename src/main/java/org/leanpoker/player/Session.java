@@ -20,6 +20,10 @@ public class Session {
 //            "minimum_raise": 2,
 //            "bet_index": 3
 
+
+//                "community_cards": [],
+
+
     private Integer round;
     private BigDecimal small_blind;
     private BigDecimal big_blind;
