@@ -8,6 +8,7 @@ public class Player {
 
     static final String VERSION = "Excited Fish";
     static private Random random = new Random();
+    static PairStrategy pairStrategy = new PairStrategy();
 
     public static int betRequest(JsonElement request) {
         System.out.println("betRequest: " + request);
