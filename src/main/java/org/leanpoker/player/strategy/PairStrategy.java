@@ -18,12 +18,12 @@ public class PairStrategy implements Strategy {
         raiseSelector = new RaiseSelector(session);
 
         int analyzes = analyzeCards(session.getAllCards());
-        if (analyzes < 200) { // Not a pair
+        if (analyzes < getKoef(Combination.PAIR)) { // Not a pair
             return 0;
-        } else if (analyzes < 300 &&
+        } else if (analyzes < getKoef(Combination.DOUBLE_PAIR) &&
             (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3)) {
             return 0;
-        } else if (analyzes > 500) {
+        } else if (analyzes > getKoef(Combination.TRIPLE)) {
             return raiseSelector.getMaximumRaise();
         }
 
@@ -33,7 +33,11 @@ public class PairStrategy implements Strategy {
     private int analyzeCards(List<Card> handCards) {
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(handCards);
         Combination combination = cardAnalyzeResult.getCombination();
-        return combination.getValue() * 100 + cardAnalyzeResult.getBiggestCardInCombination();
+        return getKoef(combination) + cardAnalyzeResult.getBiggestCardInCombination();
+    }
+
+    private int getKoef(Combination combination) {
+        return combination.getValue() * 100;
     }
 
     @Override
