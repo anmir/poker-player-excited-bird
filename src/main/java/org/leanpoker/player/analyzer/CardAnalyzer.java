@@ -9,5 +9,5 @@ import java.util.List;
  * Created by andrey on 12.08.17.
  */
 public interface CardAnalyzer {
-    Combination analyzeCards(List<Card> cards);
+    Combination analyzeCards(List<Card> holeCards, List<Card> tableCards);
 }

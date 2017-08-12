@@ -13,8 +13,7 @@ import static org.leanpoker.player.constants.Combination.BIGGEST_CARD;
 public class DefaultCardAnalyzer implements CardAnalyzer {
 
     @Override
-    public Combination analyzeCards(List<Card> cards) {
-
+    public Combination analyzeCards(List<Card> holeCards, List<Card> tableCards) {
         return BIGGEST_CARD;
     }
 }
