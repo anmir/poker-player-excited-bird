@@ -40,8 +40,8 @@ buildscript {
 }
 
 dependencies {
+    compile 'org.projectlombok:lombok:1.16.18'
     compile 'com.google.code.gson:gson:2.2.4'
-    compile 'org.projectlombok.lombok'
 
     def tomcatVersion = '7.0.11'
 
