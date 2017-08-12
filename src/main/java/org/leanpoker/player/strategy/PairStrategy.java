@@ -16,7 +16,14 @@ public class PairStrategy implements Strategy {
     @Override
 //    public int process(List<Card> handCards) {
     public int process(Session session) {
-        return analyzeCards(session.getAllCards());
+        int analyzes = analyzeCards(session.getAllCards());
+        if(analyzes < 200){
+            return 0;
+        }else if( analyzes < 300 &&
+                (session.getCommunity_cards() != null && !session.getCommunity_cards().isEmpty() )){
+            return 0;
+        }
+        return analyzes;
     }
 
     private int analyzeCards(List<Card> handCards) {

@@ -57,6 +57,9 @@ public class Session {
 
     }
 
+    public List<Card> getCommunity_cards() {
+        return community_cards;
+    }
 
     public Integer getRound() {
         return round;
