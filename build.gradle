@@ -9,6 +9,8 @@ repositories {
     mavenCentral()
 }
 
+
+
 def final HTTP_PORT = System.getenv('PORT') ? System.getenv('PORT').toInteger() : 8080
 
 // change this by n*100 to offset the ports of the tomcat server
@@ -42,6 +44,8 @@ dependencies {
     compile 'org.projectlombok.lombok'
 
     def tomcatVersion = '7.0.11'
+
+    compile 'junit:junit:4.12'
 
     providedCompile "org.apache.tomcat:tomcat-servlet-api:${tomcatVersion}"
 
