@@ -19,6 +19,7 @@ public class PairStrategy implements Strategy {
         betSelector = new BetSelector(session);
 
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(session.getAllCards());
+        System.out.println("cardAnalyzeResult: " + cardAnalyzeResult);
         Combination combination = cardAnalyzeResult.getCombination();
 
         Integer biggestCard = cardAnalyzeResult.getBiggestCardInCombination();
@@ -27,7 +28,7 @@ public class PairStrategy implements Strategy {
         if (analyzes < getKoef(Combination.PAIR)) {
             System.out.println("No combinations");
             if (session.getCommunity_cards() != null
-                && session.getCommunity_cards().size() == 0) {
+                    && session.getCommunity_cards().size() == 0) {
                 if (isFlashOpotunity(session)) {
                     return betSelector.getMaximumRaise();
                 } else if (biggestCard >= CardRanks._8.getOrdr()) {

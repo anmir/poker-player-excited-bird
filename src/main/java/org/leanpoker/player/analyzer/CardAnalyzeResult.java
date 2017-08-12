@@ -1,10 +1,12 @@
 package org.leanpoker.player.analyzer;
 
+import lombok.Data;
 import org.leanpoker.player.constants.Combination;
 
 /**
  * Created by andrey on 12.08.17.
  */
+@Data
 public class CardAnalyzeResult {
     private Combination combination;
     private Integer biggestCardInCombination;
