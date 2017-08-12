@@ -16,7 +16,7 @@ public class PairStrategy implements Strategy {
     public int process(List<Card> handCards) {
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(handCards);
         Combination combination = cardAnalyzeResult.getCombination();
-        return combination == Combination.PAIR ? 100 : 0;
+        return combination == Combination.PAIR ? 80 : 0;
     }
 
     @Override
@@ -25,6 +25,6 @@ public class PairStrategy implements Strategy {
         cards.add(tableCards);
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(cards);
         Combination combination = cardAnalyzeResult.getCombination();
-        return combination == Combination.PAIR ? 100 : 0;
+        return combination == Combination.PAIR ? 80 : 0;
     }
 }

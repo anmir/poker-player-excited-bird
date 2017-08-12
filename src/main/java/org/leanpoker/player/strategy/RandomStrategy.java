@@ -13,11 +13,11 @@ public class RandomStrategy implements Strategy {
 
     @Override
     public int process(List<Card> handCards) {
-        return random.nextInt(50);
+        return random.nextInt(80);
     }
 
     @Override
     public int process(List<Card> handCards, List<Card> tableCards) {
-        return random.nextInt(50);
+        return random.nextInt(80);
     }
 }
