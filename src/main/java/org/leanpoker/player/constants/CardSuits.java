@@ -13,4 +13,8 @@ public enum  CardSuits {
     CardSuits(String val) {
         this.val = val;
     }
+
+    public String getVal() {
+        return val;
+    }
 }

@@ -25,4 +25,8 @@ public enum CardRanks {
         this.ordr = ordr;
         this.val = val;
     }
+
+    public String getVal() {
+        return val;
+    }
 }

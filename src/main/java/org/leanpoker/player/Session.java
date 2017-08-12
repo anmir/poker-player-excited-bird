@@ -1,6 +1,7 @@
 package org.leanpoker.player;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by liy on 12.08.2017.
@@ -20,8 +21,8 @@ public class Session {
 //            "minimum_raise": 2,
 //            "bet_index": 3
 
-
-//                "community_cards": [],
+ private List<Card> community_cards;
+ private List<Person> players;
 
 
     private Integer round;
