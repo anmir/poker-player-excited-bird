@@ -13,10 +13,10 @@ import java.util.List;
 
 public class PairStrategy implements Strategy {
     private CardAnalyzer analyzer = new DefaultCardAnalyzer();
-    private RaiseSelector raiseSelector;
+    private BetSelector betSelector;
 
     public int process(Session session) {
-        raiseSelector = new RaiseSelector(session);
+        betSelector = new BetSelector(session);
 
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(session.getAllCards());
         Combination combination = cardAnalyzeResult.getCombination();
@@ -27,27 +27,27 @@ public class PairStrategy implements Strategy {
         if (analyzes < getKoef(Combination.PAIR)) {
             System.out.println("No combinations");
             if (session.getCommunity_cards() != null
-                    && session.getCommunity_cards().size() ==0) {
-                if (biggestCard >= CardRanks._8.getOrdr()){
-                    if(biggestCard>=CardRanks.KING.getOrdr()){
-                        return raiseSelector.getMaximumRaise();
+                && session.getCommunity_cards().size() == 0) {
+                if (biggestCard >= CardRanks._8.getOrdr()) {
+                    if (biggestCard >= CardRanks.KING.getOrdr()) {
+                        return betSelector.getMinimalRaise() * 4;
                     }
-                    return  raiseSelector.getMinimalRaise();
+                    return betSelector.getMinimalRaise();
                 }
             }
-            return raiseSelector.check();
+            return betSelector.check();
         } else if (analyzes < getKoef(Combination.DOUBLE_PAIR)) {
-            System.out.println("Got double pair");
             if (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3) {
-                return raiseSelector.check();
+                System.out.println("Got double pair");
+                return betSelector.check();
             }
         } else if (analyzes > getKoef(Combination.TRIPLE)) {
             System.out.println("Got triple");
-            return raiseSelector.getMaximumRaise();
+            return betSelector.getMaximumRaise();
         }
 
         System.out.println("Got pair?");
-        return raiseSelector.getMinimalRaise();
+        return betSelector.getMinimalRaise();
     }
 
     private int getKoef(Combination combination) {

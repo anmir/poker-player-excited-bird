@@ -4,11 +4,15 @@ import org.leanpoker.player.Session;
 
 import java.math.BigDecimal;
 
-public class RaiseSelector {
+public class BetSelector {
     private Session session;
 
-    public RaiseSelector(Session session) {
+    public BetSelector(Session session) {
         this.session = session;
+    }
+
+    public Integer fold() {
+        return 0;
     }
 
     public Integer check() {
@@ -16,7 +20,7 @@ public class RaiseSelector {
     }
 
     public Integer getMinimalRaise() {
-        return session.getMinimum_raise().intValue();
+        return session.getCurrent_buy_in().intValue() + session.getMinimum_raise().intValue();
     }
 
     public Integer getMaximumRaise() {
