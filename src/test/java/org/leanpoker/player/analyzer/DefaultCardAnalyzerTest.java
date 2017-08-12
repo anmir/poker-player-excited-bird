@@ -150,5 +150,42 @@ public class DefaultCardAnalyzerTest {
         Assert.assertEquals(CardRanks.QUEEN.getOrdr(), biggestCard);
     }
 
+    @Test
+    public void isStraightFLush() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("2", CardSuits.DIAMONDS.getVal());
+        Card card2 = new Card("4", CardSuits.DIAMONDS.getVal());
+        Card card3 = new Card("5", CardSuits.DIAMONDS.getVal());
+        Card card4 = new Card("3", CardSuits.DIAMONDS.getVal());
+        Card card5 = new Card("6", CardSuits.DIAMONDS.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Integer biggestCard = DefaultCardAnalyzer.isStraightFlush(cards);
+        Assert.assertEquals(new Integer(6), biggestCard);
+    }
+
+    @Test
+    public void isNOtStraightFLush() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("2", CardSuits.DIAMONDS.getVal());
+        Card card2 = new Card("4", CardSuits.DIAMONDS.getVal());
+        Card card3 = new Card("5", CardSuits.DIAMONDS.getVal());
+        Card card4 = new Card("3", CardSuits.SPADES.getVal());
+        Card card5 = new Card("6", CardSuits.DIAMONDS.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Integer biggestCard = DefaultCardAnalyzer.isStraightFlush(cards);
+        Assert.assertEquals(null, biggestCard);
+    }
 
 }

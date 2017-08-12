@@ -17,6 +17,10 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
     @Override
     public CardAnalyzeResult analyzeCards(List<Card> cards) {
         if (isNotEmpty(cards)) {
+            Integer biggestStraightFlush = isStraightFlush(cards);
+            if (biggestStraightFlush != null) {
+                return new CardAnalyzeResult(Combination.STRAIGHT_FLASH, biggestStraightFlush);
+            }
             Integer biggestFourKindRank = isFourKind(cards);
             if (biggestFourKindRank != null) {
                 return new CardAnalyzeResult(Combination.FOUR_KIND, biggestFourKindRank);
@@ -154,5 +158,19 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
             return card.getRank().getOrdr();
         }
         return null;
+    }
+
+    public static Integer isStraightFlush(List<Card> cards) {
+        Integer biggestFlushCard = isFlush(cards);
+        if (biggestFlushCard == null) {
+            return null;
+        }
+        Integer biggestStraightCard = isStraight(cards);
+        if (biggestStraightCard == null) {
+            return null;
+        }
+        Collections.sort(cards);
+        Card card = cards.get(cards.size() - 1);
+        return card.getRank().getOrdr();
     }
 }
