@@ -33,6 +33,7 @@ public class Player {
             bet = new RandomStrategy().process((Session)null);;
         }
 
+        System.out.println("Placing bet = " + bet);
         return bet;
     }
 

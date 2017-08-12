@@ -24,9 +24,11 @@ public class PairStrategy implements Strategy {
             (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3)) {
             return 0;
         } else if (analyzes > getKoef(Combination.TRIPLE)) {
+            System.out.println("Maximum raise");
             return raiseSelector.getMaximumRaise();
         }
 
+        System.out.println("Minimal raise");
         return raiseSelector.getMinimalRaise();
     }
 
