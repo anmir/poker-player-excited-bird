@@ -10,7 +10,7 @@ public class PairStrategy implements Strategy {
         Card firstCard = cards.get(0);
         Card secondCard = cards.get(1);
 
-        return firstCard.getRank().equals(secondCard.getSuit()) ? 100 : 0;
+        return firstCard.getRank().equals(secondCard.getRank()) ? 100 : 0;
     }
 
     @Override
