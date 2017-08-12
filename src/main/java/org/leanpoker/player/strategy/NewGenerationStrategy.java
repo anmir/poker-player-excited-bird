@@ -4,13 +4,12 @@ import org.leanpoker.player.Session;
 import org.leanpoker.player.strategy.particular.FlopStrategy;
 import org.leanpoker.player.strategy.particular.PreFlopStrategy;
 import org.leanpoker.player.strategy.particular.RiverStrategy;
+import org.leanpoker.player.strategy.particular.TurnStrategy;
 
-/**
- * Created by andrey on 12.08.17.
- */
 public class NewGenerationStrategy implements Strategy {
     private PreFlopStrategy preflopStrategy = new PreFlopStrategy();
     private FlopStrategy flopStrategy = new FlopStrategy();
+    private TurnStrategy turnStrategy = new TurnStrategy();
     private RiverStrategy riverStrategy = new RiverStrategy();
 
     @Override
@@ -23,6 +22,10 @@ public class NewGenerationStrategy implements Strategy {
             System.out.println("----------flop::::");
             return flopStrategy.process(session);
         }
+        if (isTurn(session)) {
+            System.out.println("----------turn::::");
+            return turnStrategy.process(session);
+        }
         System.out.println("----------river::::");
         return riverStrategy.process(session);
     }
@@ -32,6 +35,10 @@ public class NewGenerationStrategy implements Strategy {
     }
 
     private boolean isFlop(Session session) {
-        return session.getCommunity_cards() == null || session.getCommunity_cards().size() == 3;
+        return session.getCommunity_cards() != null || session.getCommunity_cards().size() == 3;
+    }
+
+    private boolean isTurn(Session session) {
+        return session.getCommunity_cards() != null || session.getCommunity_cards().size() == 4;
     }
 }

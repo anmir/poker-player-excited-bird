@@ -11,7 +11,7 @@ import org.leanpoker.player.strategy.Strategy;
 
 import java.util.List;
 
-public class RiverStrategy implements Strategy {
+public class TurnStrategy implements Strategy {
     @Override
     public int process(Session session) {
         CardAnalyzer analyzer = new DefaultCardAnalyzer();
@@ -23,12 +23,12 @@ public class RiverStrategy implements Strategy {
 
         // 5 card combo or more powerful
         if (combination.getValue() >= Combination.STRAIGHT.getValue()) {
-            return betSelector.getMaximumRaise();
+            return betSelector.getMinimalRaise() * 2;
         }
 
         // 3 card combo
         if (combination == Combination.TRIPLE) {
-            return betSelector.getMinimalRaise() * 4;
+            return betSelector.getMinimalRaise();
         }
 
         if (combination != Combination.BIGGEST_CARD) {

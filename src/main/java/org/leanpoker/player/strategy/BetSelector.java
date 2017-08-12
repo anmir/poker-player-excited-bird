@@ -16,7 +16,7 @@ public class BetSelector {
     }
 
     public Integer check() {
-        return session.getCurrent_buy_in().intValue();
+        return session.isWeFirst() ? 0 : session.getCurrent_buy_in().intValue();
     }
 
     public Integer getMinimalRaise() {
@@ -25,5 +25,18 @@ public class BetSelector {
 
     public Integer getMaximumRaise() {
         return session.getPlayer().getStack().intValue();
+    }
+
+    public Integer safeRaise(Session session) {
+        int playerStack = session.getPlayer().getStack().intValue();
+        int buyIn = session.getCurrent_buy_in().intValue();
+
+        if (playerStack < 300 || buyIn > 300) {
+            return check();
+        } else if (playerStack < 100 || buyIn > 700) {
+            return fold();
+        } else {
+            return getMinimalRaise();
+        }
     }
 }
