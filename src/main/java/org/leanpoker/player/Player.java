@@ -10,6 +10,7 @@ public class Player {
     static private Random random = new Random();
 
     public static int betRequest(JsonElement request) {
+        System.out.println("betRequest: " + request);
         return random.nextInt(500);
     }
 
