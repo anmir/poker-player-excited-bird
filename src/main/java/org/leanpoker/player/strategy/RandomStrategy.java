@@ -12,7 +12,12 @@ public class RandomStrategy implements Strategy {
     static private Random random = new Random();
 
     @Override
-    public int process(List<Card> cards) {
+    public int process(List<Card> handCards) {
+        return random.nextInt(500);
+    }
+
+    @Override
+    public int process(List<Card> handCards, List<Card> tableCards) {
         return random.nextInt(500);
     }
 }

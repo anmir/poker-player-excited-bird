@@ -12,4 +12,9 @@ public class PairStrategy implements Strategy {
 
         return firstCard.getRank().equals(secondCard.getSuit()) ? 100 : 0;
     }
+
+    @Override
+    public int process(List<Card> handCards, List<Card> tableCards) {
+        return process(handCards);
+    }
 }
