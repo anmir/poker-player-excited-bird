@@ -1,9 +1,7 @@
 package org.leanpoker.player.strategy;
 
-import org.leanpoker.player.Card;
 import org.leanpoker.player.Session;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -17,8 +15,4 @@ public class RandomStrategy implements Strategy {
         return random.nextInt(80);
     }
 
-    @Override
-    public int process(List<Card> handCards, List<Card> tableCards) {
-        return random.nextInt(80);
-    }
 }

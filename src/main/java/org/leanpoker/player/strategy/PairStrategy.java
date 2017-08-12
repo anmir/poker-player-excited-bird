@@ -8,7 +8,6 @@ import org.leanpoker.player.analyzer.DefaultCardAnalyzer;
 import org.leanpoker.player.constants.CardRanks;
 import org.leanpoker.player.constants.Combination;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PairStrategy implements Strategy {
@@ -30,13 +29,13 @@ public class PairStrategy implements Strategy {
         if (analyzes < getKoef(Combination.PAIR)) {
             System.out.println("No combinations  " + ownCards);
             if (isPreFlop(session)) {
-                if (isFlashOpotunity(session)){
-                        return getPreflopMax();
-                } else if (biggestCard >= CardRanks._8.getOrdr()){
-                    if(biggestCard>=CardRanks.KING.getOrdr()){
+                if (isFlashOpotunity(session)) {
+                    return getPreflopMax();
+                } else if (biggestCard >= CardRanks._8.getOrdr()) {
+                    if (biggestCard >= CardRanks.KING.getOrdr()) {
                         return getPreflopMax();
                     }
-                    return  betSelector.getMinimalRaise();
+                    return betSelector.getMinimalRaise();
                 }
             }
             return betSelector.check();
@@ -59,7 +58,7 @@ public class PairStrategy implements Strategy {
     }
 
     private boolean isPreFlop(Session session) {
-        return session.getCommunity_cards() == null || session.getCommunity_cards().size() ==0;
+        return session.getCommunity_cards() == null || session.getCommunity_cards().size() == 0;
     }
 
     private boolean isFlashOpotunity(Session session) {
@@ -74,12 +73,4 @@ public class PairStrategy implements Strategy {
         return combination.getValue() * 100;
     }
 
-    @Override
-    public int process(List<Card> handCards, List<Card> tableCards) {
-        List cards = new ArrayList(handCards);
-        cards.add(tableCards);
-        CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(cards);
-        Combination combination = cardAnalyzeResult.getCombination();
-        return combination == Combination.PAIR ? 80 : 0;
-    }
 }
