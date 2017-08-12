@@ -1,10 +1,8 @@
 package org.leanpoker.player;
 
+import java.math.BigInteger;
 import java.util.List;
 
-/**
- * Created by liy on 12.08.2017.
- */
 public class Person {
     /*
     *     {
@@ -27,10 +25,8 @@ public class Person {
       "id": 2
     }*/
     private String name;
+    private BigInteger stack;
     private List<Card> hole_cards;
-//    private String sad;
-//    private String sad;
-
 
     public String getName() {
         return name;
@@ -38,6 +34,14 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigInteger getStack() {
+        return stack;
+    }
+
+    public void setStack(BigInteger stack) {
+        this.stack = stack;
     }
 
     public List<Card> getHole_cards() {
@@ -51,8 +55,9 @@ public class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
-                ", hole_cards=" + hole_cards +
-                '}';
+            "name='" + name + '\'' +
+            ", stack=" + stack +
+            ", hole_cards=" + hole_cards +
+            '}';
     }
 }

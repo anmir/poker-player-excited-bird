@@ -22,8 +22,8 @@ public class Session {
 //            "minimum_raise": 2,
 //            "bet_index": 3
 
- private List<Card> community_cards;
- private List<Person> players;
+    private List<Card> community_cards;
+    private List<Person> players;
 
 
     private Integer round;
@@ -37,16 +37,29 @@ public class Session {
     private BigDecimal minimum_raise;
     private Integer bet_index;
 
-    public List<Card> getAllCards(){
+    public Person getPlayer() {
+        if (players != null) {
+            for (Person player : players) {
+                if (player != null) {
+                    if ("Excited Bird".equals(player.getName())) {
+                        return player;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<Card> getAllCards() {
         ArrayList<Card> cards = new ArrayList<>(community_cards);
 
         if (players != null) {
             for (Person player : players) {
-                if (player != null && player.getHole_cards() !=null) {
-                    if("Excited Bird".equals(player.getName())) {
+                if (player != null && player.getHole_cards() != null) {
+                    if ("Excited Bird".equals(player.getName())) {
                         cards.addAll(player.getHole_cards());
 //                        break;
-                    }else {
+                    } else {
                         System.out.println("player = " + player.getName());
                         System.out.println("player.cards = " + player.getHole_cards());
                     }
@@ -144,17 +157,17 @@ public class Session {
     @Override
     public String toString() {
         return "Session{" +
-                "round=" + round +
-                ", small_blind=" + small_blind +
-                ", big_blind=" + big_blind +
-                ", orbits=" + orbits +
-                ", dealer=" + dealer +
-                ", current_buy_in=" + current_buy_in +
-                ", pot=" + pot +
-                ", in_action=" + in_action +
-                ", minimum_raise=" + minimum_raise +
-                ", bet_index=" + bet_index +
-                '}';
+            "round=" + round +
+            ", small_blind=" + small_blind +
+            ", big_blind=" + big_blind +
+            ", orbits=" + orbits +
+            ", dealer=" + dealer +
+            ", current_buy_in=" + current_buy_in +
+            ", pot=" + pot +
+            ", in_action=" + in_action +
+            ", minimum_raise=" + minimum_raise +
+            ", bet_index=" + bet_index +
+            '}';
     }
 }
 
