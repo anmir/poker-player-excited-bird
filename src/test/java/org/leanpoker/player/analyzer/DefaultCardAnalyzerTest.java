@@ -3,6 +3,7 @@ package org.leanpoker.player.analyzer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.leanpoker.player.Card;
+import org.leanpoker.player.constants.CardRanks;
 import org.leanpoker.player.constants.CardSuits;
 
 import java.util.ArrayList;
@@ -109,5 +110,45 @@ public class DefaultCardAnalyzerTest {
         Integer biggestCard = DefaultCardAnalyzer.isFlush(cards);
         Assert.assertEquals(null, biggestCard);
     }
+
+
+    @Test
+    public void isNotFourKind() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("6", CardSuits.DIAMONDS.getVal());
+        Card card2 = new Card("2", CardSuits.SPADES.getVal());
+        Card card3 = new Card("4", CardSuits.DIAMONDS.getVal());
+        Card card4 = new Card("3", CardSuits.CLUBS.getVal());
+        Card card5 = new Card("5", CardSuits.DIAMONDS.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Integer biggestCard = DefaultCardAnalyzer.isFourKind(cards);
+        Assert.assertEquals(null, biggestCard);
+    }
+
+    @Test
+    public void isFourKind() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("Q", CardSuits.DIAMONDS.getVal());
+        Card card2 = new Card("Q", CardSuits.SPADES.getVal());
+        Card card3 = new Card("Q", CardSuits.DIAMONDS.getVal());
+        Card card4 = new Card("Q", CardSuits.CLUBS.getVal());
+        Card card5 = new Card("2", CardSuits.DIAMONDS.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Integer biggestCard = DefaultCardAnalyzer.isFourKind(cards);
+        Assert.assertEquals(CardRanks.QUEEN.getOrdr(), biggestCard);
+    }
+
 
 }

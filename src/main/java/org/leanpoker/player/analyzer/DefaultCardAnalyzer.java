@@ -17,6 +17,10 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
     @Override
     public CardAnalyzeResult analyzeCards(List<Card> cards) {
         if (isNotEmpty(cards)) {
+            Integer biggestFourKindRank = isFourKind(cards);
+            if (biggestFourKindRank != null) {
+                return new CardAnalyzeResult(Combination.FOUR_KIND, biggestFourKindRank);
+            }
             Integer biggestFlushRank = isFlush(cards);
             if (biggestFlushRank != null) {
                 return new CardAnalyzeResult(Combination.FLUSH, biggestFlushRank);
@@ -37,12 +41,6 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
             if (biggestPairRank != null) {
                 return new CardAnalyzeResult(Combination.PAIR, biggestPairRank);
             }
-
-
-
-
-
-
 
         }
         Card biggestCard = Collections.max(cards);
@@ -131,6 +129,26 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
             }
         }
         if (sameSuitCount == 4) {
+            Collections.sort(cards);
+            Card card = cards.get(cards.size() - 1);
+            return card.getRank().getOrdr();
+        }
+        return null;
+    }
+
+    public static Integer isFourKind(List<Card> cards) {
+        if (cards.size() < 4) {
+            return null;
+        }
+        int matchesCounter = 0;
+        for (int i = 0; i < cards.size()-1; i++) {
+            Card card = cards.get(i);
+            Card nextCard = cards.get(i + 1);
+            if (nextCard.getRank().getOrdr().equals(card.getRank().getOrdr())) {
+                matchesCounter += 1;
+            }
+        }
+        if (matchesCounter == 3) {
             Collections.sort(cards);
             Card card = cards.get(cards.size() - 1);
             return card.getRank().getOrdr();
