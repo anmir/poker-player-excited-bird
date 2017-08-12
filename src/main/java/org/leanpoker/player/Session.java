@@ -1,6 +1,7 @@
 package org.leanpoker.player;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,27 @@ public class Session {
     private Integer in_action;
     private BigDecimal minimum_raise;
     private Integer bet_index;
+
+    public List<Card> getAllCards(){
+        ArrayList<Card> cards = new ArrayList<>(community_cards);
+
+        if (players != null) {
+            for (Person player : players) {
+                if (player != null && player.getHole_cards() !=null) {
+                    if("Excited Bird".equals(player.getName())) {
+                        cards.addAll(player.getHole_cards());
+//                        break;
+                    }else {
+                        System.out.println("player = " + player.getName());
+                        System.out.println("player.cards = " + player.getHole_cards());
+                    }
+                }
+            }
+        }
+        return cards;
+
+    }
+
 
     public Integer getRound() {
         return round;
