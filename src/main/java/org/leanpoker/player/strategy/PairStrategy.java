@@ -37,7 +37,7 @@ public class PairStrategy implements Strategy {
                     if(biggestCard>=CardRanks.KING.getOrdr()){
                         return getPreflopMax(session);
                     }
-                    return betSelector.getMinimalRaise();
+                    return betSelector.check();
                 }
             }else {
                 int countFlashMax = countFlash(session);
