@@ -25,31 +25,33 @@ public class PairStrategy implements Strategy {
         Integer biggestCard = cardAnalyzeResult.getBiggestCardInCombination();
         int analyzes = getKoef(combination) + biggestCard;
 
+        List<Card> ownCards = session.getOwnCards();
+
         if (analyzes < getKoef(Combination.PAIR)) {
-            System.out.println("No combinations");
+            System.out.println("No combinations  " + ownCards);
             if (session.getCommunity_cards() != null
-                    && session.getCommunity_cards().size() == 0) {
-                if (isFlashOpotunity(session)) {
-                    return betSelector.getMaximumRaise();
-                } else if (biggestCard >= CardRanks._8.getOrdr()) {
-                    if (biggestCard >= CardRanks.KING.getOrdr()) {
+                    && session.getCommunity_cards().size() ==0) {
+                if (isFlashOpotunity(session)){
+                        return betSelector.getMaximumRaise();
+                } else if (biggestCard >= CardRanks._8.getOrdr()){
+                    if(biggestCard>=CardRanks.KING.getOrdr()){
                         return betSelector.getMinimalRaise() * 4;
                     }
-                    return betSelector.getMinimalRaise();
+                    return  betSelector.getMinimalRaise();
                 }
             }
             return betSelector.check();
         } else if (analyzes < getKoef(Combination.DOUBLE_PAIR)) {
             if (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3) {
-                System.out.println("Got double pair");
+                System.out.println("Got less then double pair " + ownCards);
                 return betSelector.check();
             }
         } else if (analyzes > getKoef(Combination.TRIPLE)) {
-            System.out.println("Got triple");
+            System.out.println("Got triple or more " + ownCards);
             return betSelector.getMaximumRaise();
         }
 
-        System.out.println("Got pair?");
+        System.out.println("Got pair or more? " + ownCards);
         return betSelector.getMinimalRaise();
     }
 
