@@ -33,7 +33,8 @@ public class Player {
             bet = new RandomStrategy().process(null);;
         }
 
-        return bet;
+//        return bet;
+        return 0;
     }
 
     protected static Session getSession(JsonElement request) {
