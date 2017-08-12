@@ -23,6 +23,8 @@ public class PairStrategy implements Strategy {
         } else if (analyzes < 300 &&
             (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3)) {
             return 0;
+        } else if (analyzes > 500) {
+            return raiseSelector.getMaximumRaise();
         }
 
         return raiseSelector.getMinimalRaise();
