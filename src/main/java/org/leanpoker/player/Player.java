@@ -24,7 +24,7 @@ public class Player {
             Session session = getSession(request);
             System.out.println("session = " + session);
 
-            List<Card> handCards = new ArrayList<>();
+            List<Card> handCards = session.getAllCards();
 
             // Should be good realisation
             bet = strategy.process(handCards);

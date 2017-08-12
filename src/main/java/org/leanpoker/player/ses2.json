@@ -1,0 +1,72 @@
+{
+  "tournament_id": "598e25d6b0cdd800040018da",
+  "game_id": "598eb6f78314440004000015",
+  "round": 0,
+  "players": [
+    {
+      "name": "Maverik",
+      "stack": 996,
+      "status": "active",
+      "bet": 4,
+      "time_used": 0,
+      "version": "Maverik",
+      "id": 0
+    },
+    {
+      "name": "Z team",
+      "stack": 0,
+      "status": "out",
+      "bet": 0,
+      "time_used": 8154,
+      "version": "0.1",
+      "id": 1
+    },
+    {
+      "name": "Excited Bird",
+      "stack": 1000,
+      "status": "active",
+      "bet": 0,
+      "hole_cards": [
+        {
+          "rank": "10",
+          "suit": "spades"
+        },
+        {
+          "rank": "Q",
+          "suit": "diamonds"
+        }
+      ],
+      "time_used": 0,
+      "version": "Default Java folding player",
+      "id": 2
+    },
+    {
+      "name": "Wise Kaa 2",
+      "stack": 998,
+      "status": "active",
+      "bet": 2,
+      "time_used": 0,
+      "version": "Default Python folding player",
+      "id": 3
+    }
+  ],
+  "small_blind": 2,
+  "big_blind": 4,
+  "orbits": 0,
+  "dealer": 2,
+  "community_cards": [
+    {
+      "rank": "10",
+      "suit": "diamonds"
+    },
+    {
+      "rank": "K",
+      "suit": "diamonds"
+    }
+  ],
+  "current_buy_in": 4,
+  "pot": 6,
+  "in_action": 2,
+  "minimum_raise": 2,
+  "bet_index": 3
+}
