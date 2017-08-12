@@ -51,4 +51,24 @@ public class DefaultCardAnalyzerTest {
         Integer biggestTripleCard = DefaultCardAnalyzer.isDoublePair(cards);
         Assert.assertEquals(new Integer(4), biggestTripleCard);
     }
+
+
+    @Test
+    public void isStraight() throws Exception {
+        List<Card> cards = new ArrayList<>();
+        Card card1 = new Card("6", CardSuits.CLUBS.getVal());
+        Card card2 = new Card("2", CardSuits.DIAMONDS.getVal());
+        Card card3 = new Card("4", CardSuits.CLUBS.getVal());
+        Card card4 = new Card("3", CardSuits.SPADES.getVal());
+        Card card5 = new Card("5", CardSuits.DIAMONDS.getVal());
+
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card3);
+        cards.add(card4);
+        cards.add(card5);
+
+        Integer biggestTripleCard = DefaultCardAnalyzer.isStraight(cards);
+        Assert.assertEquals(new Integer(6), biggestTripleCard);
+    }
 }
