@@ -3,7 +3,7 @@ package org.leanpoker.player.constants;
 /**
  * Created by andrey on 12.08.17.
  */
-public enum Combinations {
+public enum Combination {
     BIGGEST_CARD(1),
     PAIR(2),
     DOUBLE_PAIR(3),
@@ -16,7 +16,7 @@ public enum Combinations {
     ROYAL_FLASH(10);
     private Integer value;
 
-    Combinations(Integer value) {
+    Combination(Integer value) {
         this.value = value;
     }
 
