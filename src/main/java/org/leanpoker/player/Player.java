@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Player {
 
-    static final String VERSION = "Default Java folding player";
+    static final String VERSION = "Excited Fish";
     static private Random random = new Random();
 
     public static int betRequest(JsonElement request) {
