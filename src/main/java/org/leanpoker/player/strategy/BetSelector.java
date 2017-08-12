@@ -2,8 +2,6 @@ package org.leanpoker.player.strategy;
 
 import org.leanpoker.player.Session;
 
-import java.math.BigDecimal;
-
 public class BetSelector {
     private Session session;
 
@@ -27,7 +25,7 @@ public class BetSelector {
         return session.getPlayer().getStack().intValue();
     }
 
-    public Integer safeRaise(Session session) {
+    public Integer safeRaise() {
         int playerStack = session.getPlayer().getStack().intValue();
         int buyIn = session.getCurrent_buy_in().intValue();
 

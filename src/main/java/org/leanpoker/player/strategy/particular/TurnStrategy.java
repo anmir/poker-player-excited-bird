@@ -32,7 +32,7 @@ public class TurnStrategy implements Strategy {
         }
 
         if (combination != Combination.BIGGEST_CARD) {
-            return betSelector.safeRaise(session);
+            return betSelector.safeRaise();
         }
 
         return betSelector.fold();
