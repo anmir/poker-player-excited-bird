@@ -24,7 +24,8 @@ public class PairStrategy implements Strategy {
         Integer biggestCard = cardAnalyzeResult.getBiggestCardInCombination();
         int analyzes = getKoef(combination) + biggestCard;
 
-        if (analyzes < getKoef(Combination.PAIR)) { // Not a pair
+        if (analyzes < getKoef(Combination.PAIR)) {
+            System.out.println("No combinations");
             if (session.getCommunity_cards() != null
                     && session.getCommunity_cards().size() ==0) {
                 if (biggestCard >= CardRanks._8.getOrdr()){
@@ -34,21 +35,18 @@ public class PairStrategy implements Strategy {
                     return  raiseSelector.getMinimalRaise();
                 }
             }
-            return 0;
+            return raiseSelector.check();
         } else if (analyzes < getKoef(Combination.DOUBLE_PAIR)) {
+            System.out.println("Got double pair");
             if (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3) {
-                return 0;
+                return raiseSelector.check();
             }
-
         } else if (analyzes > getKoef(Combination.TRIPLE)) {
-            return raiseSelector.getMaximumRaise();
-
-        } else if (analyzes > getKoef(Combination.TRIPLE)) {
-            System.out.println("Maximum raise");
+            System.out.println("Got triple");
             return raiseSelector.getMaximumRaise();
         }
 
-        System.out.println("Minimal raise");
+        System.out.println("Got pair?");
         return raiseSelector.getMinimalRaise();
     }
 

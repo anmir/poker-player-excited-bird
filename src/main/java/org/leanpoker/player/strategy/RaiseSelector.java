@@ -11,6 +11,10 @@ public class RaiseSelector {
         this.session = session;
     }
 
+    public Integer check() {
+        return session.getCurrent_buy_in().intValue();
+    }
+
     public Integer getMinimalRaise() {
         return session.getMinimum_raise().intValue();
     }
