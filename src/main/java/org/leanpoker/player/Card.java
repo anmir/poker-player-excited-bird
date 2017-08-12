@@ -43,4 +43,11 @@ public class Card {
         }
        return getRank().compare(other.getRank());
     }
+
+    public boolean isOneSuit(Card other){
+        if (other == null) {
+            return false;
+        }
+        return getSuit().equals(other.getSuit());
+    }
 }
