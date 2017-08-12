@@ -28,8 +28,8 @@ public class PairStrategy implements Strategy {
             System.out.println("No combinations");
             if (session.getCommunity_cards() != null
                 && session.getCommunity_cards().size() == 0) {
-                if (isFlashOpotunity(session)){
-                        return raiseSelector.getMaximumRaise();
+                if (isFlashOpotunity(session)) {
+                    return betSelector.getMaximumRaise();
                 } else if (biggestCard >= CardRanks._8.getOrdr()) {
                     if (biggestCard >= CardRanks.KING.getOrdr()) {
                         return betSelector.getMinimalRaise() * 4;
