@@ -16,8 +16,25 @@ public class PairStrategy implements Strategy {
     private CardAnalyzer analyzer = new DefaultCardAnalyzer();
     private BetSelector betSelector;
 
+    private int lastBetRound;
+    private int lastBetAmount;
+
     public int process(Session session) {
+
+        Integer curRound = session.getRound();
+        int wantedBet = processBase(session);
+        int resBet = 0;
+        if (curRound == lastBetRound) {
+            resBet = wantedBet - lastBetAmount;
+//        } else {
+        }
+        lastBetAmount = wantedBet;
+        lastBetRound = curRound;
+        return resBet;
+    }
+    public int processBase(Session session) {
         betSelector = new BetSelector(session);
+
 
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(session.getAllCards());
         System.out.println("cardAnalyzeResult: " + cardAnalyzeResult);
