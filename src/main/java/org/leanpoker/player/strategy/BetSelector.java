@@ -20,7 +20,7 @@ public class BetSelector {
     }
 
     public Integer getMinimalRaise() {
-        return session.getCurrent_buy_in().intValue() + session.getMinimum_raise().intValue();
+        return session.getMinimum_raise().intValue();
     }
 
     public Integer getMaximumRaise() {

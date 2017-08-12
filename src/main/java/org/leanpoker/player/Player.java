@@ -26,7 +26,8 @@ public class Player {
             List<Card> handCards = session.getAllCards();
 
             // Should be good realisation
-            bet = combinationOrientedStrategy.process(session);
+//            bet = combinationOrientedStrategy.process(session);
+            bet = strategy.process(session);
         } catch (Exception e) {
             System.err.println("main err= " + e);
             bet = new RandomStrategy().process((Session) null);
