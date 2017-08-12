@@ -23,4 +23,13 @@ public class DefaultCardAnalyzerTest {
         Integer pair = DefaultCardAnalyzer.isPair(cards);
         Assert.assertEquals(new Integer(2), pair);
     }
+
+    @Test
+    public void isTriple() throws Exception {
+        cards.add(card1);
+        cards.add(card2);
+        cards.add(card2);
+        Integer biggestTripleCard = DefaultCardAnalyzer.isTriple(cards);
+        Assert.assertEquals(new Integer(2), biggestTripleCard);
+    }
 }
