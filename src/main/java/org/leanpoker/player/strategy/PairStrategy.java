@@ -1,20 +1,24 @@
 package org.leanpoker.player.strategy;
 
 import org.leanpoker.player.Card;
+import org.leanpoker.player.analyzer.CardAnalyzer;
+import org.leanpoker.player.analyzer.DefaultCardAnalyzer;
+import org.leanpoker.player.constants.Combination;
 
 import java.util.List;
 
 public class PairStrategy implements Strategy {
-    @Override
-    public int process(List<Card> cards) {
-        Card firstCard = cards.get(0);
-        Card secondCard = cards.get(1);
+    private CardAnalyzer analyzer = new DefaultCardAnalyzer();
 
-        return firstCard.getRank().equals(secondCard.getRank()) ? 100 : 0;
+    @Override
+    public int process(List<Card> handCards) {
+        Combination combination = analyzer.analyzeCards(handCards, null);
+        return combination == Combination.PAIR ? 100 : 0;
     }
 
     @Override
     public int process(List<Card> handCards, List<Card> tableCards) {
-        return process(handCards);
+        Combination combination = analyzer.analyzeCards(handCards, tableCards);
+        return combination == Combination.PAIR ? 100 : 0;
     }
 }

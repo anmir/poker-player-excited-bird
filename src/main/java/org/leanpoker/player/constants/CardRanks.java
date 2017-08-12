@@ -29,4 +29,8 @@ public enum CardRanks {
     public String getVal() {
         return val;
     }
+
+    public int compare(CardRanks other){
+        return Integer.compare(this.ordr, other.ordr);
+    }
 }
