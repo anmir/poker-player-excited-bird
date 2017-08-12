@@ -25,11 +25,10 @@ public class Player {
 
             // Should be good realisation
 //            bet = combinationOrientedStrategy.process(session);
-            bet = generationStrategy.process(session);
+            bet = strategy.process(session);
         } catch (Exception e) {
             System.err.println("main err= " + e);
             bet = new RandomStrategy().process((Session) null);
-            ;
         }
 
         System.out.println("Placing bet = " + bet);
