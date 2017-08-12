@@ -27,10 +27,10 @@ public class Player {
             List<Card> handCards = session.getAllCards();
 
             // Should be good realisation
-            bet = strategy.process(handCards);
+            bet = strategy.process(session);
         } catch (Exception e) {
             System.err.println("main err= " + e);
-            bet = new RandomStrategy().process(null);;
+            bet = new RandomStrategy().process((Session)null);;
         }
 
         return bet;

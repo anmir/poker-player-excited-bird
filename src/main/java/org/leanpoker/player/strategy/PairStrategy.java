@@ -1,6 +1,7 @@
 package org.leanpoker.player.strategy;
 
 import org.leanpoker.player.Card;
+import org.leanpoker.player.Session;
 import org.leanpoker.player.analyzer.CardAnalyzeResult;
 import org.leanpoker.player.analyzer.CardAnalyzer;
 import org.leanpoker.player.analyzer.DefaultCardAnalyzer;
@@ -13,10 +14,16 @@ public class PairStrategy implements Strategy {
     private CardAnalyzer analyzer = new DefaultCardAnalyzer();
 
     @Override
-    public int process(List<Card> handCards) {
+//    public int process(List<Card> handCards) {
+    public int process(Session session) {
+        return analyzeCards(session.getAllCards());
+    }
+
+    private int analyzeCards(List<Card> handCards) {
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(handCards);
         Combination combination = cardAnalyzeResult.getCombination();
-        return combination == Combination.PAIR ? 80 : 0;
+        return combination.getValue() *100 + cardAnalyzeResult.getBiggestCardInCombination() ;
+//        80 : 0;
     }
 
     @Override
