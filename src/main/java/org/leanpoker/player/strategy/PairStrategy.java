@@ -20,7 +20,7 @@ public class PairStrategy implements Strategy {
         if(analyzes < 200){
             return 0;
         }else if( analyzes < 300 &&
-                (session.getCommunity_cards() != null && !session.getCommunity_cards().isEmpty() )){
+                (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3 )){
             return 0;
         }
         return analyzes;
