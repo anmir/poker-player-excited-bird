@@ -16,7 +16,7 @@ public class BetSelector {
     }
 
     public Integer check() {
-        return session.getCurrent_buy_in().intValue();
+        return session.isWeFirst() ? 0 : session.getCurrent_buy_in().intValue();
     }
 
     public Integer getMinimalRaise() {
