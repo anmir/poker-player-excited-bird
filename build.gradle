@@ -45,7 +45,7 @@ dependencies {
 
     def tomcatVersion = '7.0.11'
 
-    compile 'junit:junit:4.12'
+    testCompile  'junit:junit:4.12'
 
     providedCompile "org.apache.tomcat:tomcat-servlet-api:${tomcatVersion}"
 

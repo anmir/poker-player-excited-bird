@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Created by andrey on 12.08.17.
  */
+@Deprecated
 public class ParsingUtils {
 
     public static List<Card> getCards(JsonElement request) {

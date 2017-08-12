@@ -3,18 +3,26 @@ package org.leanpoker.player.constants;
 /**
  * Created by andrey on 12.08.17.
  */
-public class CardRanks {
-    public Integer _2 = 2;
-    public Integer _3 = 3;
-    public Integer _4 = 4;
-    public Integer _5 = 5;
-    public Integer _6 = 6;
-    public Integer _7 = 7;
-    public Integer _8 = 8;
-    public Integer _9 = 9;
-    public Integer _10 = 10;
-    public Integer _J = 11;
-    public Integer _Q = 12;
-    public Integer _K = 13;
-    public Integer _A = 14;
+public enum CardRanks {
+    _2( "2", 2),
+    _3("3", 3),
+    _4("4", 4),
+    _5("5", 5),
+    _6("6", 6),
+    _7("7", 7),
+    _8("8", 8),
+    _9("9", 9),
+    _10("10", 10),
+    JAN("J", 11),
+    QUEEN("Q", 12),
+    KING("K", 13),
+    ACE("A", 14);
+    
+    int ordr;
+    String val;
+
+    CardRanks(String val, int ordr) {
+        this.ordr = ordr;
+        this.val = val;
+    }
 }
