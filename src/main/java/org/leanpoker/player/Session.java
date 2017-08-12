@@ -28,6 +28,16 @@ public class Session {
 
 
     private Integer round;
+
+    public String getGame_id() {
+        return game_id;
+    }
+
+    public void setGame_id(String game_id) {
+        this.game_id = game_id;
+    }
+
+    private String game_id;
     private BigDecimal small_blind;
     private BigDecimal big_blind;
     private Number orbits;
@@ -41,12 +51,13 @@ public class Session {
     public List<Person> getPlayers() {
         return players;
     }
+
     //    The first player is (dealer+1)%(players.length
-    public int getFirstPlayer(){
-        return (getDealer() +1)%getPlayers().size();
+    public int getFirstPlayer() {
+        return (getDealer() + 1) % getPlayers().size();
     }
 
-    public boolean isWeFirst(){
+    public boolean isWeFirst() {
         return OUR_NAME.equals(getPlayers().get(getFirstPlayer()).getName());
     }
 
@@ -68,7 +79,8 @@ public class Session {
 
         List<Card> ownCards = getOwnCards();
         if (ownCards != null) {
-            cards.addAll(ownCards);;
+            cards.addAll(ownCards);
+            ;
         }
         return cards;
 
@@ -92,10 +104,10 @@ public class Session {
         return ownCards;
     }
 
-    public int getActivePlayers(){
-        int count =0;
+    public int getActivePlayers() {
+        int count = 0;
         for (Person player : players) {
-            if("active".equals(player.getStatus())){
+            if ("active".equals(player.getStatus())) {
                 count++;
             }
         }
@@ -189,17 +201,17 @@ public class Session {
     @Override
     public String toString() {
         return "Session{" +
-            "round=" + round +
-            ", small_blind=" + small_blind +
-            ", big_blind=" + big_blind +
-            ", orbits=" + orbits +
-            ", dealer=" + dealer +
-            ", current_buy_in=" + current_buy_in +
-            ", pot=" + pot +
-            ", in_action=" + in_action +
-            ", minimum_raise=" + minimum_raise +
-            ", bet_index=" + bet_index +
-            '}';
+                "round=" + round +
+                ", small_blind=" + small_blind +
+                ", big_blind=" + big_blind +
+                ", orbits=" + orbits +
+                ", dealer=" + dealer +
+                ", current_buy_in=" + current_buy_in +
+                ", pot=" + pot +
+                ", in_action=" + in_action +
+                ", minimum_raise=" + minimum_raise +
+                ", bet_index=" + bet_index +
+                '}';
     }
 }
 

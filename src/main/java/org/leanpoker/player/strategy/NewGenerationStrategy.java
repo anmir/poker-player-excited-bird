@@ -15,30 +15,30 @@ public class NewGenerationStrategy implements Strategy {
     @Override
     public int process(Session session) {
         if (isPreFlop(session)) {
-            System.out.println("----------preFlop::::");
+            System.out.println("----------preFlop::::" + session.getGame_id());
             return preflopStrategy.process(session);
         }
         if (isFlop(session)) {
-            System.out.println("----------flop::::");
+            System.out.println("----------flop::::" + session.getGame_id());
             return flopStrategy.process(session);
         }
         if (isTurn(session)) {
-            System.out.println("----------turn::::");
+            System.out.println("----------turn::::" + session.getGame_id());
             return turnStrategy.process(session);
         }
-        System.out.println("----------river::::");
+        System.out.println("----------river::::" + session.getGame_id());
         return riverStrategy.process(session);
     }
 
     private boolean isPreFlop(Session session) {
-        return session.getCommunity_cards() == null || session.getCommunity_cards().size() == 0;
+        return session.getCommunity_cards() == null && session.getCommunity_cards().size() == 0;
     }
 
     private boolean isFlop(Session session) {
-        return session.getCommunity_cards() != null || session.getCommunity_cards().size() == 3;
+        return session.getCommunity_cards() != null && session.getCommunity_cards().size() == 3;
     }
 
     private boolean isTurn(Session session) {
-        return session.getCommunity_cards() != null || session.getCommunity_cards().size() == 4;
+        return session.getCommunity_cards() != null && session.getCommunity_cards().size() == 4;
     }
 }

@@ -2,10 +2,7 @@ package org.leanpoker.player;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import org.leanpoker.player.strategy.PairStrategy;
-import org.leanpoker.player.strategy.RandomStrategy;
-import org.leanpoker.player.strategy.SimpleCombinationOrientedStrategy;
-import org.leanpoker.player.strategy.Strategy;
+import org.leanpoker.player.strategy.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ public class Player {
 
     static private Strategy strategy = new PairStrategy();
     static private Strategy combinationOrientedStrategy = new SimpleCombinationOrientedStrategy();
+    static private Strategy generationStrategy = new NewGenerationStrategy();
 
     public static int betRequest(JsonElement request) {
         int bet = 10;
@@ -27,7 +25,7 @@ public class Player {
 
             // Should be good realisation
 //            bet = combinationOrientedStrategy.process(session);
-            bet = strategy.process(session);
+            bet = generationStrategy.process(session);
         } catch (Exception e) {
             System.err.println("main err= " + e);
             bet = new RandomStrategy().process((Session) null);

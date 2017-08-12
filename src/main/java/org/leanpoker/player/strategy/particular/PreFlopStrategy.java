@@ -12,8 +12,6 @@ import org.leanpoker.player.strategy.Strategy;
  * Created by andrey on 12.08.17.
  */
 public class PreFlopStrategy implements Strategy {
-    private CardAnalyzer analyzer = new DefaultCardAnalyzer();
-    private BetSelector betSelector;
 
     /**
      * если пара
@@ -25,7 +23,8 @@ public class PreFlopStrategy implements Strategy {
      */
     @Override
     public int process(Session session) {
-        betSelector = new BetSelector(session);
+        CardAnalyzer analyzer = new DefaultCardAnalyzer();
+        BetSelector betSelector = new BetSelector(session);
         CardAnalyzeResult cardAnalyzeResult = analyzer.analyzeCards(session.getAllCards());
         System.out.println("cardAnalyzeResult: " + cardAnalyzeResult);
         Combination combination = cardAnalyzeResult.getCombination();
