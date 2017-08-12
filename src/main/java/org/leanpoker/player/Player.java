@@ -14,7 +14,7 @@ import java.util.Random;
 public class Player {
     static final String VERSION = "Excited Fish";
 
-    static private Strategy strategy = new RandomStrategy();
+    static private Strategy strategy = new PairStrategy();
 
     public static int betRequest(JsonElement request) {
         int bet = 10;

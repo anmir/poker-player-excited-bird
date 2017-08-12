@@ -7,6 +7,9 @@ import java.util.List;
 public class PairStrategy implements Strategy {
     @Override
     public int process(List<Card> cards) {
-        return 1;
+        Card firstCard = cards.get(0);
+        Card secondCard = cards.get(1);
+
+        return firstCard.getRank().equals(secondCard.getSuit()) ? 100 : 0;
     }
 }
