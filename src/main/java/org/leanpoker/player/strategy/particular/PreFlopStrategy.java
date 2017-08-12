@@ -29,13 +29,14 @@ public class PreFlopStrategy implements Strategy {
         System.out.println("cardAnalyzeResult: " + cardAnalyzeResult);
         Combination combination = cardAnalyzeResult.getCombination();
 
-        if (combination.getValue().equals(Combination.PAIR.getValue())) {
-            return betSelector.getMinimalRaise();
-        }
-
         Boolean ordered = analyzer.isOrdered(session.getAllCards());
         if (ordered) {
             return betSelector.getMinimalRaise();
+        }
+
+        Boolean containsHighCard = analyzer.containsHighCard(session.getAllCards());
+        if (containsHighCard) {
+            return betSelector.getMaximumRaise();
         }
 
         Boolean allCardsAreHigh = analyzer.allCardsAreHigh(session.getAllCards());
@@ -43,10 +44,14 @@ public class PreFlopStrategy implements Strategy {
             return betSelector.getMaximumRaise();
         }
 
-        Boolean containsHighCard = analyzer.containsHighCard(session.getAllCards());
-        if (containsHighCard) {
-            return betSelector.getMaximumRaise();
+        if (combination.getValue().equals(Combination.PAIR.getValue())) {
+            return betSelector.getMinimalRaise();
         }
+
+
+
+
+
 
         return betSelector.check();
     }
