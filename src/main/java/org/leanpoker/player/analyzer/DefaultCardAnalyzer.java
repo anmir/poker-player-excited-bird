@@ -17,27 +17,31 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
     @Override
     public CardAnalyzeResult analyzeCards(List<Card> cards) {
         if (isNotEmpty(cards)) {
-            Integer biggestPairRank = isPair(cards);
-            if (biggestPairRank != null) {
-                return new CardAnalyzeResult(Combination.PAIR, biggestPairRank);
-            }
-            Integer biggestTripleRank = isTriple(cards);
-            if (biggestTripleRank != null) {
-                return new CardAnalyzeResult(Combination.TRIPLE, biggestTripleRank);
-            }
-
-            Integer biggestDoublePairRank = isDoublePair(cards);
-            if (biggestDoublePairRank != null) {
-                return new CardAnalyzeResult(Combination.DOUBLE_PAIR, biggestDoublePairRank);
+            Integer biggestFlushRank = isFlush(cards);
+            if (biggestFlushRank != null) {
+                return new CardAnalyzeResult(Combination.FLUSH, biggestFlushRank);
             }
             Integer biggestStraightRank = isStraight(cards);
             if (biggestStraightRank != null) {
                 return new CardAnalyzeResult(Combination.STRAIGHT, biggestStraightRank);
             }
-            Integer biggestFlushRank = isFlush(cards);
-            if (biggestFlushRank != null) {
-                return new CardAnalyzeResult(Combination.FLUSH, biggestFlushRank);
+            Integer biggestDoublePairRank = isDoublePair(cards);
+            if (biggestDoublePairRank != null) {
+                return new CardAnalyzeResult(Combination.DOUBLE_PAIR, biggestDoublePairRank);
             }
+            Integer biggestTripleRank = isTriple(cards);
+            if (biggestTripleRank != null) {
+                return new CardAnalyzeResult(Combination.TRIPLE, biggestTripleRank);
+            }
+            Integer biggestPairRank = isPair(cards);
+            if (biggestPairRank != null) {
+                return new CardAnalyzeResult(Combination.PAIR, biggestPairRank);
+            }
+
+
+
+
+
 
 
         }
