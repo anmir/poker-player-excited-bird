@@ -2,13 +2,14 @@ package org.leanpoker.player.strategy;
 
 import org.leanpoker.player.Session;
 import org.leanpoker.player.strategy.particular.FlopStrategy;
+import org.leanpoker.player.strategy.particular.PreFlopStrategy;
 import org.leanpoker.player.strategy.particular.RiverStrategy;
 
 /**
  * Created by andrey on 12.08.17.
  */
 public class NewGenerationStrategy implements Strategy {
-    private PreflopStrategy preflopStrategy = new PreflopStrategy();
+    private PreFlopStrategy preflopStrategy = new PreFlopStrategy();
     private FlopStrategy flopStrategy = new FlopStrategy();
     private RiverStrategy riverStrategy = new RiverStrategy();
 
