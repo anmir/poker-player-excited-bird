@@ -28,7 +28,7 @@ public class Player {
 
             // Should be good realisation
             bet = strategy.process(handCards);
-        } catch (JsonSyntaxException e) {
+        } catch (Exception e) {
             System.err.println("main err= " + e);
             bet = new RandomStrategy().process(null);;
         }
