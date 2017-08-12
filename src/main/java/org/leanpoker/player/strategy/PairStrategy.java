@@ -6,8 +6,10 @@ import org.leanpoker.player.analyzer.CardAnalyzeResult;
 import org.leanpoker.player.analyzer.CardAnalyzer;
 import org.leanpoker.player.analyzer.DefaultCardAnalyzer;
 import org.leanpoker.player.constants.CardRanks;
+import org.leanpoker.player.constants.CardSuits;
 import org.leanpoker.player.constants.Combination;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class PairStrategy implements Strategy {
@@ -35,10 +37,17 @@ public class PairStrategy implements Strategy {
                     if(biggestCard>=CardRanks.KING.getOrdr()){
                         return getPreflopMax(session);
                     }
-                    return betSelector.getMinimalRaise();
+                    return betSelector.check();
                 }
+            }else {
+                int countFlashMax = countFlash(session);
+                if(countFlashMax <4) {
+                    System.out.println("No flash oportunity  " + ownCards);
+                    System.out.println("No flash oportunity all  " + session.getAllCards());
+                    return betSelector.fold();
+                }
+
             }
-            return betSelector.check();
         } else if (analyzes < getKoef(Combination.DOUBLE_PAIR)) {
             if (session.getCommunity_cards() != null && session.getCommunity_cards().size() > 3) {
                 System.out.println("Got less then double pair " + ownCards);
@@ -67,6 +76,26 @@ public class PairStrategy implements Strategy {
             return false;
         }
         return ownCards.get(0).getSuit() == ownCards.get(1).getSuit();
+    }
+    private int countFlash(Session session){
+        List<Card> allCards = session.getAllCards();
+        HashMap<CardSuits, Integer> suitMap = new HashMap<>();
+        for (CardSuits cardSuits : CardSuits.values()) {
+            suitMap.put(cardSuits, Integer.valueOf(0));
+        }
+
+        for (Card card : allCards) {
+            Integer prev = suitMap.get(card.getSuit());
+            suitMap.put(card.getSuit(), prev+1);
+        }
+
+        int max = 0;
+        for (Integer integer : suitMap.values()) {
+            if(integer > max){
+                max= integer;
+            }
+        }
+        return max;
     }
 
     private int getKoef(Combination combination) {
