@@ -34,6 +34,11 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
             if (biggestStraightRank != null) {
                 return new CardAnalyzeResult(Combination.STRAIGHT, biggestStraightRank);
             }
+            Integer biggestFlushRank = isFlush(cards);
+            if (biggestFlushRank != null) {
+                return new CardAnalyzeResult(Combination.FLUSH, biggestFlushRank);
+            }
+
 
         }
         Card biggestCard = Collections.max(cards);
@@ -109,4 +114,23 @@ public class DefaultCardAnalyzer implements CardAnalyzer {
         return biggestCardd.getRank().getOrdr();
     }
 
+    public static Integer isFlush(List<Card> cards) {
+        if (cards.size() < 5) {
+            return null;
+        }
+        int sameSuitCount = 0;
+        for (int i = 0; i < cards.size() - 1; i++) {
+            Card card = cards.get(i);
+            Card nextCard = cards.get(i + 1);
+            if (nextCard.getSuit().equals(card.getSuit())) {
+                sameSuitCount += 1;
+            }
+        }
+        if (sameSuitCount == 4) {
+            Collections.sort(cards);
+            Card card = cards.get(cards.size() - 1);
+            return card.getRank().getOrdr();
+        }
+        return null;
+    }
 }
